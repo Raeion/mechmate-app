@@ -316,7 +316,7 @@ packages:
     dependency: transitive
     description:
       name: io
-      sha256: "2635216ca6a737e60de577ffa1a48a0bec76ca8e62917cfc1bb88c14c570646f"
+      sha256: "2635216ca6a737e60de577ffa1a48a0bec76ca8a62917cfc1bb88c14c570646f"
       url: "https://pub.dev"
     source: hosted
     version: "1.1.0"
@@ -340,7 +340,7 @@ packages:
     dependency: transitive
     description:
       name: jni_util
-      sha256: "1ba86da04a5f2bf18e2c7edb955f46b00942c3fc35f"
+      sha256: "1ba86da04a5f2bf18fde2edb235587e70c5b0fc5bd4ba955f46b00942c3fc35f"
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
@@ -436,7 +436,7 @@ packages:
     dependency: transitive
     description:
       name: objective_c
-      sha256: b7fb95a6d9af4f009edd63dc5ac69f07420b23a16161c6dd8660290b59c602e8e
+      sha256: b7fb95a6d9a4f009edd63dc5ac69f07420b23a16161c6dd8660290b59c602e8e
       url: "https://pub.dev"
     source: hosted
     version: "9.5.0"
@@ -580,7 +580,7 @@ packages:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: "1e12aafe40850da80edfd679a2a6bf63ba7ab37c7fa98286da459a757b3399"
+      sha256: "1e12aafe408aa50da80edfd679a2a6bf63ba7ab37c7fa98286da459a757b3399"
       url: "https://pub.dev"
     source: hosted
     version: "2.4.28"
@@ -636,7 +636,7 @@ packages:
     dependency: transitive
     description:
       name: shelf_web_socket
-      sha256: "3632775c8e90d6c9712f883e633716432a27758216fcb61bd86a8321c0580925"
+      sha256: "3632775c8e90d6c9712f883e633716432a27758216dfb61bd86a8321c0580925"
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
@@ -665,7 +665,7 @@ packages:
     dependency: transitive
     description:
       name: sqlite3
-      sha256: "3145bd74dcdb4fd6f5c6dda4d4e4490a8087d7f28614dee5d37087290f0f8a2"
+      sha256: "3145bd74dcdb4fd6f5c6dda4d4e4490a8087d7f286a14dee5d37087290f0f8a2"
       url: "https://pub.dev"
     source: hosted
     version: "2.9.4"

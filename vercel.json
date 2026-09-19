@@ -1,7 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "buildCommand": "bash tool/vercel-build.sh",
+  "buildCommand": "echo skip-prebuilt-flutter-web",
   "installCommand": "echo skip-node-install",
   "outputDirectory": "build/web",
   "rewrites": [

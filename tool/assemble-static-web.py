@@ -4,8 +4,13 @@
 from __future__ import annotations
 
 import base64
+import gzip
+import hashlib
+import json
 import pathlib
 import shutil
+import subprocess
+import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PARTS = ROOT / "tool" / "web-parts"
@@ -18,12 +23,15 @@ def write_bytes(rel: str, data: bytes) -> None:
     dest.write_bytes(data)
 
 
-def concat_parts(stem: str, dest_rel: str) -> None:
+def concat_parts(stem: str, dest_rel: str, decompress: bool = False) -> None:
     directory = PARTS / stem
     if not directory.is_dir():
         return
     chunks = sorted(p for p in directory.iterdir() if p.is_file())
-    write_bytes(dest_rel, b"".join(p.read_bytes() for p in chunks))
+    data = b"".join(p.read_bytes() for p in chunks)
+    if decompress:
+        data = gzip.decompress(data)
+    write_bytes(dest_rel, data)
 
 
 def decode_b64(rel: str) -> None:
@@ -32,13 +40,44 @@ def decode_b64(rel: str) -> None:
         write_bytes(rel, base64.b64decode(src.read_text()))
 
 
+def compile_catalog() -> None:
+    script = ROOT / "tool" / "compile_catalog.py"
+    if not script.is_file():
+        return
+    subprocess.check_call([sys.executable, str(script)], cwd=ROOT)
+    generated = ROOT / "assets" / "data" / "catalog.json"
+    if generated.is_file():
+        write_bytes("assets/assets/data/catalog.json", generated.read_bytes())
+
+
+def verify_checksums() -> None:
+    manifest = PARTS / "checksums.json"
+    if not manifest.is_file():
+        return
+    expected = json.loads(manifest.read_text())
+    errors: list[str] = []
+    for rel, sha in expected.items():
+        path = OUT / rel
+        if not path.is_file():
+            errors.append(f"missing {rel}")
+            continue
+        got = hashlib.sha1(path.read_bytes()).hexdigest()
+        if got != sha:
+            errors.append(f"{rel} {got} != {sha}")
+    if errors:
+        raise SystemExit("checksum fail:\n" + "\n".join(errors))
+
+
 def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     if (PARTS / "copy").is_dir():
         shutil.copytree(PARTS / "copy", OUT, dirs_exist_ok=True)
     concat_parts("main.dart.js", "main.dart.js")
+    concat_parts("main.dart.js.gz", "main.dart.js", decompress=True)
     concat_parts("catalog.json", "assets/assets/data/catalog.json")
     concat_parts("drift_worker.js", "drift_worker.js")
+    concat_parts("notices", "assets/NOTICES")
+    concat_parts("sqlite3.wasm.gz", "sqlite3.wasm", decompress=True)
     for rel in (
         "sqlite3.wasm",
         "favicon.png",
@@ -51,6 +90,11 @@ def main() -> None:
         "assets/AssetManifest.bin",
     ):
         decode_b64(rel)
+    if not (OUT / "assets/assets/data/catalog.json").is_file():
+        compile_catalog()
+    if not (OUT / "assets/NOTICES").is_file():
+        write_bytes("assets/NOTICES", b"Mechmate Flutter licenses\n")
+    verify_checksums()
 
 
 if __name__ == "__main__":

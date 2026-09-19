@@ -59,10 +59,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       loading: () => const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       ),
-      error: (error, _) => Scaffold(
+      error: (_, _) => Scaffold(
         body: ErrorState(
           message:
-              'The local catalog failed to open. Restart the app. If it keeps failing, reinstall so the bundled database can copy again. Detail: $error',
+              'The local catalog failed to open. Restart the app. If it keeps failing, reinstall so the bundled database can copy again.',
           onRetry: () => ref.invalidate(catalogProvider),
         ),
       ),
@@ -79,6 +79,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 tooltip: 'Garage',
                 onPressed: () => context.push('/garage'),
                 icon: const Icon(Icons.garage_outlined),
+              ),
+              IconButton(
+                tooltip: 'Settings',
+                onPressed: () => context.push('/settings'),
+                icon: const Icon(Icons.settings_outlined),
               ),
             ],
           ),
@@ -118,6 +123,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               TextField(
                 textInputAction: TextInputAction.search,
                 decoration: const InputDecoration(
+                  labelText: 'Search the catalog',
                   hintText: 'Search a sound, leak, code, or part',
                   prefixIcon: Icon(Icons.search),
                 ),

@@ -79,11 +79,6 @@
     "sha1": "54b59856da691bb8f0bad7f435d01f7c64a8686a",
     "size": 242
   },
-  "assets/FontManifest.json": {
-    "url": "https://mechmate-blush.vercel.app/assets/FontManifest.json",
-    "sha1": "7496a6513d624fd4f0e91d2f06c8f50ceac04b36",
-    "size": 208
-  },
   "assets/shaders/ink_sparkle.frag": {
     "url": "https://mechmate-blush.vercel.app/assets/shaders/ink_sparkle.frag",
     "sha1": "62b1055b4fc0da06d112f4eb2449dd601d6daacc",

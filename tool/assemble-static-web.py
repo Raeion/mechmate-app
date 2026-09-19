@@ -41,6 +41,25 @@ def decode_b64(rel: str) -> None:
         write_bytes(rel, base64.b64decode(src.read_text()))
 
 
+def write_asset_manifest_json() -> None:
+    dest = OUT / "assets" / "AssetManifest.json"
+    payload = json.dumps(
+        {
+            "assets/data/catalog.json": ["assets/data/catalog.json"],
+            "packages/cupertino_icons/assets/CupertinoIcons.ttf": [
+                "packages/cupertino_icons/assets/CupertinoIcons.ttf"
+            ],
+        },
+        separators=(",", ":"),
+    )
+    if dest.is_file():
+        existing = dest.read_text(encoding="utf-8", errors="replace")
+        if existing.lstrip().startswith("{") and "assets/data/catalog.json" in existing:
+            return
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(payload, encoding="utf-8")
+
+
 def compile_catalog() -> None:
     script = ROOT / "tool" / "compile_catalog.py"
     if not script.is_file():
@@ -57,17 +76,30 @@ def download_remote_files() -> None:
         return
     manifest = json.loads(manifest_path.read_text())
     for rel, meta in manifest.items():
+        dest = OUT / rel
+        if dest.is_file() and dest.stat().st_size > 0:
+            print(f"skip remote {rel}: already assembled")
+            continue
         url = meta["url"]
         expected = meta["sha1"]
-        request = urllib.request.Request(
-            url,
-            headers={"User-Agent": "mechmate-assemble/1.0"},
-        )
-        payload = urllib.request.urlopen(request, timeout=120).read()
+        try:
+            request = urllib.request.Request(
+                url,
+                headers={"User-Agent": "mechmate-assemble/1.0"},
+            )
+            payload = urllib.request.urlopen(request, timeout=120).read()
+        except Exception as exc:
+            if dest.is_file():
+                print(f"skip remote {rel}: {exc}")
+                continue
+            raise SystemExit(f"remote download fail {rel}: {exc}") from exc
         if meta.get("gzip") or payload[:2] == b"\x1f\x8b":
             payload = gzip.decompress(payload)
         got = hashlib.sha1(payload).hexdigest()
         if got != expected:
+            if dest.is_file():
+                print(f"skip remote {rel}: checksum {got} != {expected}")
+                continue
             raise SystemExit(f"remote checksum fail {rel}: {got} != {expected}")
         write_bytes(rel, payload)
         print(f"downloaded {rel} ({len(payload)} bytes)")
@@ -124,6 +156,7 @@ def main() -> None:
         compile_catalog()
     if not (OUT / "assets/NOTICES").is_file():
         write_bytes("assets/NOTICES", b"Mechmate Flutter licenses\n")
+    write_asset_manifest_json()
     verify_checksums()
 
 

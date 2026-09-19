@@ -163,7 +163,7 @@ def articles():
                     [
                         test(
                             "Warm-up curve",
-                            "From cold, watch coolant temp and the two composite radiator tanks.",
+                            "From cold, watch coolant temp and the two radiator tanks.",
                             "Temp climbs steadily. Upper hose stays cool until the stat opens, then both tanks are hot.",
                             "Upper hose hot immediately (stuck open) or engine hot and radiator cold (stuck shut).",
                         )

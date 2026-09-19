@@ -11,6 +11,7 @@ import pathlib
 import shutil
 import subprocess
 import sys
+import urllib.request
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 PARTS = ROOT / "tool" / "web-parts"
@@ -48,6 +49,28 @@ def compile_catalog() -> None:
     generated = ROOT / "assets" / "data" / "catalog.json"
     if generated.is_file():
         write_bytes("assets/assets/data/catalog.json", generated.read_bytes())
+
+
+def download_remote_files() -> None:
+    manifest_path = PARTS / "remote-files.json"
+    if not manifest_path.is_file():
+        return
+    manifest = json.loads(manifest_path.read_text())
+    for rel, meta in manifest.items():
+        url = meta["url"]
+        expected = meta["sha1"]
+        request = urllib.request.Request(
+            url,
+            headers={"User-Agent": "mechmate-assemble/1.0"},
+        )
+        payload = urllib.request.urlopen(request, timeout=120).read()
+        if meta.get("gzip") or payload[:2] == b"\x1f\x8b":
+            payload = gzip.decompress(payload)
+        got = hashlib.sha1(payload).hexdigest()
+        if got != expected:
+            raise SystemExit(f"remote checksum fail {rel}: {got} != {expected}")
+        write_bytes(rel, payload)
+        print(f"downloaded {rel} ({len(payload)} bytes)")
 
 
 def verify_checksums() -> None:
@@ -90,6 +113,13 @@ def main() -> None:
         "assets/AssetManifest.bin",
     ):
         decode_b64(rel)
+    download_remote_files()
+    icon_192 = OUT / "icons" / "Icon-192.png"
+    icon_512 = OUT / "icons" / "Icon-512.png"
+    if icon_192.is_file():
+        write_bytes("icons/Icon-maskable-192.png", icon_192.read_bytes())
+    if icon_512.is_file():
+        write_bytes("icons/Icon-maskable-512.png", icon_512.read_bytes())
     if not (OUT / "assets/assets/data/catalog.json").is_file():
         compile_catalog()
     if not (OUT / "assets/NOTICES").is_file():

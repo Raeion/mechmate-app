@@ -1,0 +1,80 @@
+{
+  "flutter.js": {
+    "url": "https://tmpfiles.org/dl/1789800783.0444481a18637d9d/wXwRN3SKRBzG/flutter.js.gz",
+    "sha1": "d868a09134c9f796f9a312c2e1f647fc2a5fa78b",
+    "size": 12136,
+    "gzip": true
+  },
+  "flutter_bootstrap.js": {
+    "url": "https://tmpfiles.org/dl/1789800784.a6da5351e1ea9d16/wrwnNlSpRIIY/flutter_bootstrap.js.gz",
+    "sha1": "8eeebd89b2e6229fd37a95b2bdbcc8720f41a56c",
+    "size": 13173,
+    "gzip": true
+  },
+  "main.dart.js": {
+    "url": "https://tmpfiles.org/dl/1789800786.62ca822da80e0f7c/w6wYNOSoRwO9/main.dart.js.gz",
+    "sha1": "5d8ffe202e171b0b82241acdd6667da9e21dc078",
+    "size": 3033899,
+    "gzip": true
+  },
+  "drift_worker.js": {
+    "url": "https://tmpfiles.org/dl/1789800787.e259a1e1c5868f31/wUw0NTS8RTS3/drift_worker.js.gz",
+    "sha1": "bd5b06f193ebcb95ad6f2061d1c3cbc22a60b5f1",
+    "size": 355298,
+    "gzip": true
+  },
+  "sqlite3.wasm": {
+    "url": "https://tmpfiles.org/dl/1789800789.9d5cc0e44bd54701/wmwZNiS6Rfsc/sqlite3.wasm.gz",
+    "sha1": "b7098394da44a8e9a0bb1dbfe2cd82f272cb6184",
+    "size": 730989,
+    "gzip": true
+  },
+  "assets/fonts/MaterialIcons-Regular.otf": {
+    "url": "https://tmpfiles.org/dl/1789800790.7166f2800848025e/wFwFN8S1RLhX/assets__fonts__materialicons-regular.otf.gz",
+    "sha1": "6cc9cd36c60a62545540640717a91537cb2811f3",
+    "size": 12696,
+    "gzip": true
+  },
+  "icons/Icon-192.png": {
+    "url": "https://tmpfiles.org/dl/1789800791.769ee42169531677/wIwFN3SmRBks/icons__icon-192.png.gz",
+    "sha1": "50fba7abe023143010f0160f89e68d537332d75b",
+    "size": 8866,
+    "gzip": true
+  },
+  "icons/Icon-512.png": {
+    "url": "https://tmpfiles.org/dl/1789800792.c545a237d52b561e/wVwFN1SoRWmz/icons__icon-512.png.gz",
+    "sha1": "9ee5a0574cc0f35d343613de904659aaf00e9c42",
+    "size": 22744,
+    "gzip": true
+  },
+  "favicon.png": {
+    "url": "https://tmpfiles.org/dl/1789800793.4c94e61366471306/wfwRN7S6R6Pm/favicon.png.gz",
+    "sha1": "3951e4eb4b556d16ed4b6410755fcbe8f571c79b",
+    "size": 1367,
+    "gzip": true
+  },
+  "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": {
+    "url": "https://tmpfiles.org/dl/1789800794.6cff3120042ad070/wgwcNvSMR8xT/assets__packages__cupertino_icons__assets__cupertinoicons.ttf.gz",
+    "sha1": "2e76c70d09fb1d8e6cfd9c64f7a60387224459c2",
+    "size": 1472,
+    "gzip": true
+  },
+  "assets/AssetManifest.bin": {
+    "url": "https://tmpfiles.org/dl/1789800795.009b20fdb4628c0c/wIwMNcSOR7Ed/assets__assetmanifest.bin.gz",
+    "sha1": "666137df8afb0e51f5394638ca95ed9e5db240f3",
+    "size": 180,
+    "gzip": true
+  },
+  "assets/shaders/ink_sparkle.frag": {
+    "url": "https://tmpfiles.org/dl/1789800796.1d5aa6f2bc2c1c4f/wUwYN1SNIlw0/assets__shaders__ink_sparkle.frag.gz",
+    "sha1": "62b1055b4fc0da06d112f4eb2449dd601d6daacc",
+    "size": 8890,
+    "gzip": true
+  },
+  "assets/shaders/stretch_effect.frag": {
+    "url": "https://tmpfiles.org/dl/1789800797.c5e49163d436cef8/wwwvN9S6IdAZ/assets__shaders__stretch_effect.frag.gz",
+    "sha1": "4e55da261b4244de8c053cd64cc78c982dda1874",
+    "size": 6737,
+    "gzip": true
+  }
+}

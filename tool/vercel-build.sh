@@ -13,6 +13,8 @@ if ! command -v flutter >/dev/null 2>&1; then
   export PATH="$FLUTTER_HOME/bin:$PATH"
 fi
 
+python3 tool/compile_catalog.py
+
 flutter config --no-analytics --enable-web
 flutter pub get
 

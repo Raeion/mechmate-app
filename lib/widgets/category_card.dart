@@ -69,28 +69,33 @@ class CategoryCard extends StatelessWidget {
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        child: Padding(
-          padding: EdgeInsets.all(compact ? 14 : 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                iconForName(item.icon),
-                color: Theme.of(context).colorScheme.primary,
-              ),
-              const Spacer(),
-              Text(
-                item.title,
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-              const SizedBox(height: 4),
-              Text(
-                item.subtitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodySmall,
-              ),
-            ],
+        child: Semantics(
+          button: true,
+          label: item.title,
+          hint: item.subtitle,
+          child: Padding(
+            padding: EdgeInsets.all(compact ? 14 : 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                  iconForName(item.icon),
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const Spacer(),
+                Text(
+                  item.title,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  item.subtitle,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ],
+            ),
           ),
         ),
       ),

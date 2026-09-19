@@ -8,14 +8,25 @@ Mechmate on the web is a **static Flutter build**. The catalog, garage, and sear
 - Bundled `assets/data/catalog.json` imported into local SQLite (Drift + `sqlite3.wasm`)
 - Garage state in the browser profile (`SharedPreferences`)
 
+## Live URL
+
+Production on the Kindred Sky Projects team:
+
+- https://mechmate-blush.vercel.app
+- https://mechmate-raeions-projects.vercel.app
+
+Privacy for store listings: https://mechmate-blush.vercel.app/legal/privacy
+
 ## Project
 
 - Team: Kindred Sky Projects (`raeions-projects`)
 - Project name: `mechmate`
 - Config: [../vercel.json](../vercel.json)
-- Build script: [../tool/vercel-build.sh](../tool/vercel-build.sh)
+- Assemble script: [../tool/assemble-static-web.py](../tool/assemble-static-web.py)
 
-SPA routes (`/settings`, `/article/:id`) rewrite to `index.html`. Cross-origin isolation headers let the WASM worker start.
+SPA routes (`/settings`, `/article/:id`) rewrite to `index.html`. Static Flutter files under `assets/`, `icons/`, `canvaskit/`, plus `main.dart.js`, `flutter*.js`, `sqlite3.wasm`, and `drift_worker.js`, are not rewritten. Cross-origin isolation headers let the WASM worker start.
+
+Hobby Vercel cannot install the Flutter SDK. [../tool/assemble-static-web.py](../tool/assemble-static-web.py) copies the prebuilt web tree and writes `assets/AssetManifest.json` so the app can boot without Firebase or env vars.
 
 ## Deploy from a machine with Flutter and the Vercel CLI
 

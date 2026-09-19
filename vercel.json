@@ -6,7 +6,7 @@
   "outputDirectory": "build/web",
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!assets/|canvaskit/|icons/|sqlite3\\.wasm|drift_worker\\.js|flutter|main\\.dart\\.js|manifest\\.json|favicon\\.png).*)",
       "destination": "/index.html"
     }
   ],

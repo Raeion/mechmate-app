@@ -31,9 +31,7 @@ void main() {
       MaterialApp(
         theme: AppTheme.dark(),
         home: const Scaffold(
-          body: SafetyBanner(
-            items: ['Support the vehicle on rated stands.'],
-          ),
+          body: SafetyBanner(items: ['Support the vehicle on rated stands.']),
         ),
       ),
     );
@@ -49,6 +47,7 @@ void main() {
         home: MateWelcome(onAccept: () => accepted = true),
       ),
     );
+    await tester.pump();
     expect(find.text('Your mate in mech'), findsOneWidget);
     expect(find.textContaining('A mate for your Car'), findsNothing);
     await tester.tap(find.text('Got it'));

@@ -1,5 +1,9 @@
 # Changelog
 
+## Workshop illustrations
+
+Home tiles, welcome, garage, search, browse, and error states now use a steel-and-amber picture set. Articles stay text-first. See [illustrations.md](illustrations.md).
+
 ## Vercel web host
 
 Static Flutter web deploy on the Kindred Sky Projects Vercel team. No Firebase and no environment variables. See [vercel.md](vercel.md).

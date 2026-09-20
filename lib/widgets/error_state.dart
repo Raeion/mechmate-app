@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
+import '../theme/workshop_art.dart';
+import 'workshop_image.dart';
+
 class ErrorState extends StatelessWidget {
-  const ErrorState({
-    super.key,
-    required this.message,
-    this.onRetry,
-  });
+  const ErrorState({super.key, required this.message, this.onRetry});
 
   final String message;
   final VoidCallback? onRetry;
@@ -18,12 +17,15 @@ class ErrorState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.error_outline, size: 48),
-            const SizedBox(height: 12),
-            Text(
-              message,
-              textAlign: TextAlign.center,
+            const WorkshopImage(
+              asset: WorkshopArt.errorCatalog,
+              height: 140,
+              width: 140,
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              semanticLabel: 'Catalog failed to open',
             ),
+            const SizedBox(height: 12),
+            Text(message, textAlign: TextAlign.center),
             if (onRetry != null) ...[
               const SizedBox(height: 16),
               FilledButton(onPressed: onRetry, child: const Text('Try again')),

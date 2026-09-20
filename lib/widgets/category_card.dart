@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../data/models/catalog_models.dart';
+import '../theme/workshop_art.dart';
+import 'workshop_image.dart';
 
 IconData iconForName(String name) {
   switch (name) {
@@ -65,6 +67,7 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final art = WorkshopArt.forTaxonomy(item.id);
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -73,26 +76,51 @@ class CategoryCard extends StatelessWidget {
           button: true,
           label: item.title,
           hint: item.subtitle,
-          child: Padding(
-            padding: EdgeInsets.all(compact ? 14 : 16),
+          child: SizedBox.expand(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Icon(
-                  iconForName(item.icon),
-                  color: Theme.of(context).colorScheme.primary,
-                ),
-                const Spacer(),
-                Text(
-                  item.title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  item.subtitle,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
+                if (art != null)
+                  Expanded(
+                    flex: compact ? 3 : 4,
+                    child: WorkshopImage(
+                      asset: art,
+                      fit: BoxFit.cover,
+                      semanticLabel: item.title,
+                    ),
+                  ),
+                Padding(
+                  padding: EdgeInsets.fromLTRB(
+                    compact ? 12 : 14,
+                    compact ? 10 : 12,
+                    compact ? 12 : 14,
+                    compact ? 10 : 12,
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      if (art == null) ...[
+                        Icon(
+                          iconForName(item.icon),
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                        const SizedBox(height: 8),
+                      ],
+                      Text(
+                        item.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        item.subtitle,
+                        maxLines: compact ? 2 : 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
